@@ -1,0 +1,17 @@
+{
+  "name": "item-checkout",
+  "version": "1.0",
+  "description": "Item Checkout Component",
+  "author": "Andrew Tjandra",
+  "license": "",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+  }
+}
