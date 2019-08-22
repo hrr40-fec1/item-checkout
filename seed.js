@@ -19,6 +19,7 @@ db.connection.on('error', err => {
 const sizes = ['Small', 'Medium', 'Large', 'XL', 'XXL'];
 
 //  Create Color Array with object {name, url}
+//  URL will have default value until i am able to upload my own swatches
 const colors = [
   {
     color: 'red',
@@ -38,6 +39,9 @@ const colors = [
   }
 ];
 
+/////////////////////////
+//  Schema Definition  //
+/////////////////////////
 const reviewSchema = db.Schema({
   rating: Number
 });
@@ -64,18 +68,27 @@ const inventorySchema = db.Schema({
   quantity: Number
 });
 
+////////////////////////
+//  Model Definition  //
+////////////////////////
 const Products = db.model('products', productSchema);
 const Locations = db.model('locations', locationSchema);
 const Inventory = db.model('inventory', inventorySchema, 'inventory');
 
 //////////////////////////////////
-//  Create Products Collection  //
+//  Clear Existing Collections  //
 //////////////////////////////////
+Products.collection.drop();
+Locations.collection.drop();
+Inventory.collection.drop();
 
+////////////////////////////////
+//  Seed Products Collection  //
+////////////////////////////////
 const seedProductCollection = () => {
   //  Loop to Create 100 product Ids
   for (let i = 1; i <= 100; i++) {
-
+    //  Create possible product colors
     const availableColors = colors.slice();
     const productColors = [];
     randomColors = faker.random.number({min: 1, max: colors.length});
@@ -87,6 +100,7 @@ const seedProductCollection = () => {
       randomColors--;
     }
 
+    //  Construct product object
     const product = {
       productId: i,
       name: faker.commerce.productName(),
@@ -96,15 +110,13 @@ const seedProductCollection = () => {
       reviews: []
     };
 
+    //  Create product
     Products.create(product)
       .then(() => {
         return;
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        console.log('Product Collection Created');
       });
   }
 };
@@ -112,7 +124,6 @@ const seedProductCollection = () => {
 //////////////////////
 //  Create Reviews  //
 //////////////////////
-
 const createReviews = () => {
   //  FindAll ProductIds from Items Collection
   Products.find({}, (err, products) => {
@@ -120,10 +131,10 @@ const createReviews = () => {
       throw err;
     }
 
+    //  For each Product
     for (let i = 0; i < products.length; i++) {
-      //  Foreach Product Id
       const product = products[i];
-      //  Generate random number (max 100)
+      //  Generate random number of reviews (max 100)
       let numOfReviews = faker.random.number({min: 1, max: 100});
       for (let i = 0; i < numOfReviews; i++) {
         //  create n reviews
@@ -137,30 +148,31 @@ const createReviews = () => {
 
 };
 
-//////////////////////////////////
-//  Create Location Collection  //
-//////////////////////////////////
+////////////////////////////////
+//  Seed Location Collection  //
+////////////////////////////////
 //  Create two locations
 const seedLocationCollection = () => {
-  let location = {
-    storeId: 91752,
-    name: 'Eastvale'
-  };
+  for (let i = 0; i < 2; i++) {
+    let location = {
+      storeId: i,
+      name: faker.address.city()
+    };
 
-  Locations.create(location)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    Locations.create(location)
+      .then((result) => {
+        return;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 };
 
 
-// ////////////////////////////////
-//  Create Quantity Collection  //
-// ////////////////////////////////
-
+////////////////////////////////
+// Seed Inventory Collection  //
+////////////////////////////////
 const seedInventoryCollection = () => {
   //  FindAll ProductIds from Items Collection
   Products.find({}, (err, products) => {
@@ -174,8 +186,8 @@ const seedInventoryCollection = () => {
           //  ForEach Location
           Locations.find({}, (err, locations) => {
             locations.forEach((storeId) => {
-              //  Create Record with random number (max 25)
-              let quantity = faker.random.number({min: 0, max: 10});
+              //  Create Record with random number (max 15)
+              let quantity = faker.random.number({min: 0, max: 15});
               let item = {
                 productId: product.productId,
                 size: size,
@@ -199,7 +211,7 @@ const seedInventoryCollection = () => {
   });
 };
 
-// seedProductCollection();
-// seedLocationCollection();
-// createReviews();
+seedProductCollection();
+seedLocationCollection();
+createReviews();
 seedInventoryCollection();
