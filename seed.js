@@ -1,10 +1,11 @@
 const faker = require('faker');
 const db = require('mongoose');
-
 require('mongoose-currency').loadType(db);
 const Currency = db.Types.Currency;
 
-//  Connect to DB
+///////////////////////////
+//  Database Connection  //
+///////////////////////////
 db.connect('mongodb://localhost:27017/ontarget', {useNewUrlParser: true});
 
 db.connection.on('connected', () => {
@@ -64,7 +65,7 @@ const inventorySchema = db.Schema({
   productId: Number,
   size: String,
   color: String,
-  storeId: String,
+  storeId: Number,
   quantity: Number
 });
 
@@ -78,58 +79,73 @@ const Inventory = db.model('inventory', inventorySchema, 'inventory');
 //////////////////////////////////
 //  Clear Existing Collections  //
 //////////////////////////////////
-Products.collection.drop();
-Locations.collection.drop();
-Inventory.collection.drop();
+const removeExistingItems = () => {
+  return new Promise((resolve, reject) => {
+    const removedItems = [];
+    removedItems.push(Products.deleteMany({}));
+    removedItems.push(Locations.deleteMany({}));
+    removedItems.push(Inventory.deleteMany({}));
+
+    Promise.all(removedItems)
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 ////////////////////////////////
 //  Seed Products Collection  //
 ////////////////////////////////
 const seedProductCollection = () => {
-  //  Loop to Create 100 product Ids
-  for (let i = 1; i <= 100; i++) {
-    //  Create possible product colors
-    const availableColors = colors.slice();
-    const productColors = [];
-    randomColors = faker.random.number({min: 1, max: colors.length});
+  return new Promise ((resolve, reject) => {
+    const createdItems = [];
+    //  Loop to Create 100 product Ids
+    for (let i = 1; i <= 100; i++) {
+      //  Create possible product colors
+      const availableColors = colors.slice();
+      const productColors = [];
+      randomColors = faker.random.number({min: 1, max: colors.length});
 
-    while (randomColors > 0) {
-      let randIndex = faker.random.number({min: 0, max: randomColors - 1});
-      productColors.push(availableColors[randIndex]);
-      availableColors.splice(randIndex, 1);
-      randomColors--;
+      while (randomColors > 0) {
+        let randIndex = faker.random.number({min: 0, max: randomColors - 1});
+        productColors.push(availableColors[randIndex]);
+        availableColors.splice(randIndex, 1);
+        randomColors--;
+      }
+
+      //  Construct product object
+      const product = {
+        productId: i,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        size: sizes,
+        color: productColors,
+        reviews: []
+      };
+
+      //  Create product
+      createdItems.push(Products.create(product));
     }
-
-    //  Construct product object
-    const product = {
-      productId: i,
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      size: sizes,
-      color: productColors,
-      reviews: []
-    };
-
-    //  Create product
-    Products.create(product)
-      .then(() => {
-        return;
+    Promise.all(createdItems)
+      .then((items) => {
+        resolve(items);
       })
       .catch((err) => {
-        console.log(err);
+        reject(err);
       });
-  }
+  });
 };
 
 //////////////////////
 //  Create Reviews  //
 //////////////////////
-const createReviews = () => {
-  //  FindAll ProductIds from Items Collection
-  Products.find({}, (err, products) => {
-    if (err) {
-      throw err;
-    }
+const createReviews = function(products) {
+  return new Promise((resolve, reject) => {
+    //  FindAll ProductIds from Items Collection
+    const updatedReviews = [];
 
     //  For each Product
     for (let i = 0; i < products.length; i++) {
@@ -142,10 +158,17 @@ const createReviews = () => {
         let rating = faker.random.number({min: 1, max: 5});
         product.reviews.push({rating: rating});
       }
-      product.save();
+      updatedReviews.push(product.save());
     }
-  });
 
+    Promise.all(updatedReviews)
+      .then((results) => {
+        resolve('Reviews Created');
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 };
 
 ////////////////////////////////
@@ -153,29 +176,35 @@ const createReviews = () => {
 ////////////////////////////////
 //  Create two locations
 const seedLocationCollection = () => {
-  for (let i = 0; i < 2; i++) {
-    let location = {
-      storeId: i,
-      name: faker.address.city()
-    };
+  return new Promise((resolve, reject) => {
+    const createdLocations = [];
+    for (let i = 1; i <= 2; i++) {
+      let location = {
+        storeId: i,
+        name: faker.address.city()
+      };
 
-    Locations.create(location)
-      .then((result) => {
-        return;
+      createdLocations.push(Locations.create(location));
+    }
+
+    Promise.all(createdLocations)
+      .then((locations) => {
+        resolve(locations);
       })
       .catch((err) => {
-        console.log(err);
+        reject(err);
       });
-  }
+  });
 };
 
 
 ////////////////////////////////
 // Seed Inventory Collection  //
 ////////////////////////////////
-const seedInventoryCollection = () => {
+const seedInventoryCollection = function(products, locations) {
   //  FindAll ProductIds from Items Collection
-  Products.find({}, (err, products) => {
+  const createdInventory = [];
+  return new Promise((resolve, reject) => {
     for (let i = 0; i < products.length; i++) {
       //  ForEach Product Id
       const product = products[i];
@@ -184,34 +213,56 @@ const seedInventoryCollection = () => {
         //  ForEach Color
         product.color.forEach((color) => {
           //  ForEach Location
-          Locations.find({}, (err, locations) => {
-            locations.forEach((storeId) => {
-              //  Create Record with random number (max 15)
-              let quantity = faker.random.number({min: 0, max: 15});
-              let item = {
-                productId: product.productId,
-                size: size,
-                color: color.color,
-                storeId: storeId.storeId,
-                quantity: quantity
-              };
+          locations.forEach((storeId) => {
+            //  Create Record with random number (max 15)
+            let quantity = faker.random.number({min: 0, max: 15});
+            let item = {
+              productId: product.productId,
+              size: size,
+              color: color.color,
+              storeId: storeId.storeId,
+              quantity: quantity
+            };
 
-              Inventory.create(item)
-                .then(() => {
-                  return;
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            });
+            createdInventory.push(Inventory.create(item));
           });
         });
       });
     }
+
+    Promise.all(createdInventory)
+      .then((results) => {
+        resolve(results);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 
-seedProductCollection();
-seedLocationCollection();
-createReviews();
-seedInventoryCollection();
+removeExistingItems()
+  .then(() => {
+    return seedProductCollection();
+  })
+  .then((products) => {
+    return seedLocationCollection();
+  })
+  .then((locations) => {
+    Products.find({})
+      .then((products) => {
+        return createReviews(products);
+      });
+  })
+  .then(() => {
+    let locations = [];
+    Products.find({})
+      .then((products) => {
+        Locations.find({})
+          .then((locations) => {
+            return seedInventoryCollection(products, locations);
+          });
+      });
+  })
+  .catch((err) => {
+    console.log('Error: ', err);
+  });
