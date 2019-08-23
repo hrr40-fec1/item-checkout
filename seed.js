@@ -61,6 +61,7 @@ const productSchema = db.Schema({
 
 const locationSchema = db.Schema({
   storeId: Number,
+  zipCode: Number,
   name: String,
 });
 
@@ -177,6 +178,7 @@ const seedLocationCollection = () => new Promise((resolve, reject) => {
   for (let i = 1; i <= 2; i += 1) {
     const location = {
       storeId: i,
+      zipCode: faker.address.zipCode('#####'),
       name: faker.address.city(),
     };
 
