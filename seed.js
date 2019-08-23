@@ -1,8 +1,8 @@
 const faker = require('faker');
 const db = require('mongoose');
+require('mongoose-currency').loadType(db);
 
 const { Currency } = db.Types;
-require('mongoose-currency').loadType(db);
 
 /*
   Database Connection
