@@ -120,7 +120,7 @@ const seedProductCollection = () => {
       const product = {
         productId: i,
         name: faker.commerce.productName(),
-        price: faker.commerce.price(),
+        price: faker.commerce.price(0.01, 50.00),
         size: sizes,
         color: productColors,
         reviews: []
@@ -129,6 +129,7 @@ const seedProductCollection = () => {
       //  Create product
       createdItems.push(Products.create(product));
     }
+
     Promise.all(createdItems)
       .then((items) => {
         resolve(items);
@@ -144,7 +145,6 @@ const seedProductCollection = () => {
 //////////////////////
 const createReviews = function(products) {
   return new Promise((resolve, reject) => {
-    //  FindAll ProductIds from Items Collection
     const updatedReviews = [];
 
     //  For each Product
@@ -202,8 +202,8 @@ const seedLocationCollection = () => {
 // Seed Inventory Collection  //
 ////////////////////////////////
 const seedInventoryCollection = function(products, locations) {
-  //  FindAll ProductIds from Items Collection
   const createdInventory = [];
+
   return new Promise((resolve, reject) => {
     for (let i = 0; i < products.length; i++) {
       //  ForEach Product Id
@@ -240,21 +240,24 @@ const seedInventoryCollection = function(products, locations) {
   });
 };
 
+
+///////////////////////////////////
+// Run Promise Chain to Seed DB  //
+///////////////////////////////////
 removeExistingItems()
   .then(() => {
     return seedProductCollection();
   })
-  .then((products) => {
+  .then(() => {
     return seedLocationCollection();
   })
-  .then((locations) => {
+  .then(() => {
     Products.find({})
       .then((products) => {
         return createReviews(products);
       });
   })
   .then(() => {
-    let locations = [];
     Products.find({})
       .then((products) => {
         Locations.find({})
@@ -262,6 +265,9 @@ removeExistingItems()
             return seedInventoryCollection(products, locations);
           });
       });
+  })
+  .then(() => {
+    console.log('Database has been seeded.  Press ^C to exit');
   })
   .catch((err) => {
     console.log('Error: ', err);
