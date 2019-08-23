@@ -43,6 +43,7 @@ const colors = [
 /////////////////////////
 //  Schema Definition  //
 /////////////////////////
+//Defining review schema to be used as a subdocument in product schema
 const reviewSchema = db.Schema({
   rating: Number
 });
@@ -205,9 +206,8 @@ const seedInventoryCollection = function(products, locations) {
   const createdInventory = [];
 
   return new Promise((resolve, reject) => {
-    for (let i = 0; i < products.length; i++) {
-      //  ForEach Product Id
-      const product = products[i];
+    //  ForEach Product Id
+    products.forEach((product) => {
       //  ForEach Size
       product.size.forEach((size) => {
         //  ForEach Color
@@ -228,7 +228,7 @@ const seedInventoryCollection = function(products, locations) {
           });
         });
       });
-    }
+    });
 
     Promise.all(createdInventory)
       .then((results) => {
