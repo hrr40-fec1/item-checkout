@@ -39,11 +39,18 @@ const inventorySchema = db.Schema({
   quantity: Number,
 });
 
+const locationSchema = db.Schema({
+  storeId: Number,
+  zipCode: Number,
+  name: String,
+});
+
 /*
   Model Definition
 */
 const Products = db.model('products', productSchema);
 const Inventory = db.model('inventory', inventorySchema, 'inventory');
+const Locations = db.model('locations', locationSchema);
 
 /*
   Function Definitions
@@ -70,5 +77,16 @@ const getQuantity = (productId, color, size, storeId) => new Promise((resolve, r
     });
 });
 
+const getZipCode = (storeId) => new Promise((resolve, reject) => {
+  Locations.find({ storeId })
+    .then((result) => {
+      resolve(result[0].zipCode);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 module.exports.getProduct = getProduct;
 module.exports.getQuantity = getQuantity;
+module.exports.getZipCode = getZipCode;
