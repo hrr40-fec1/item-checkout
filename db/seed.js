@@ -1,23 +1,7 @@
 const faker = require('faker');
-const db = require('mongoose');
-require('mongoose-currency').loadType(db);
-
-const { Currency } = db.Types;
-
-/*
-  Database Connection
-*/
-db.connect('mongodb://localhost:27017/ontarget', { useNewUrlParser: true });
-
-db.connection.on('connected', () => {
-  // eslint-disable-next-line no-console
-  console.log('connected to MongoDB');
-});
-
-db.connection.on('error', (err) => {
-  // eslint-disable-next-line no-console
-  console.log('Error occurred: ', err);
-});
+const Locations = require('../models/locations.js');
+const Inventory = require('../models/inventory.js');
+const Products = require('../models/products.js');
 
 //  Create Size Array
 const sizes = ['Small', 'Medium', 'Large', 'XL', 'XXL'];
@@ -42,45 +26,6 @@ const colors = [
     colorUrl: 'http://google.com',
   },
 ];
-
-/*
-  Schema Definition
-*/
-
-// Defining review schema to be used as a subdocument in product schema
-const reviewSchema = db.Schema({
-  rating: Number,
-});
-
-const productSchema = db.Schema({
-  productId: Number,
-  name: String,
-  price: { type: Currency },
-  size: [String],
-  color: {},
-  reviews: [reviewSchema],
-});
-
-const locationSchema = db.Schema({
-  storeId: Number,
-  zipCode: Number,
-  name: String,
-});
-
-const inventorySchema = db.Schema({
-  productId: Number,
-  size: String,
-  color: String,
-  storeId: Number,
-  quantity: Number,
-});
-
-/*
-  Model Definition
-*/
-const Products = db.model('products', productSchema);
-const Locations = db.model('locations', locationSchema);
-const Inventory = db.model('inventory', inventorySchema, 'inventory');
 
 /*
   Clear Existing Collections
