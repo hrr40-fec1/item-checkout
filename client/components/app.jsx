@@ -51,7 +51,7 @@ class App extends React.Component {
         <Details />
         <Checkout
           city={this.state.location.name}
-          zip={this.state.lcoation.zipCode}
+          zip={this.state.location.zipCode}
         />
       </div>
     );
