@@ -68,7 +68,7 @@ const seedProductCollection = () => new Promise((resolve, reject) => {
     const product = {
       productId: i,
       name: faker.commerce.productName(),
-      price: faker.commerce.price(0.01, 50.00),
+      price: faker.finance.amount(0.01, 50.00, 2),
       size: sizes,
       color: productColors,
       reviews: [],
