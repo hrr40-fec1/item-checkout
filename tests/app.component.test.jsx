@@ -1,7 +1,7 @@
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
-import App from '../client/components/App';
+import App from '../client/components/app';
 import Header from '../client/components/header/Header';
 import Details from '../client/components/details/Details';
 import Checkout from '../client/components/checkout/Checkout';
