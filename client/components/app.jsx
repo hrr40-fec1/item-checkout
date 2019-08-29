@@ -24,7 +24,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ productId: 12 }, () => {
+    const productId = helper.getProductId();
+    this.setState({ productId }, () => {
       axios.all([
         helper.getProductInfo(this.state.productId),
         helper.getLocationInfo(this.state.storeId),
