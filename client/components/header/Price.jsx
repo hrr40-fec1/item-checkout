@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Price = ({ price }) => (
   <div id="price">
-    {price}
+    {`$${price}`}
   </div>
 );
 

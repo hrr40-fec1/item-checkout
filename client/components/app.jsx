@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      productId: '0',
+      productId: 0,
       storeId: 1,
       price: 0,
       numOfReviews: 0,
