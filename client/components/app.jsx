@@ -42,7 +42,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Rendered from App Component
         <Header
           price={this.state.price}
           numOfReviews={this.state.numOfReviews}

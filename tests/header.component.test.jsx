@@ -30,7 +30,7 @@ describe('React Component Testing - Header', () => {
     test('Average review value is rendered from prop', () => {
       const wrapper = shallow(<Reviews />);
       wrapper.setProps({ reviewAverage: 4.5 });
-      expect(wrapper.find('span#reviewAverage').text().trim()).toBe('4.5');
+      expect(wrapper.find('StarRatings').prop('rating')).toBe(4.5);
     });
 
     test('Total number of reviews is being rendered from prop', () => {
