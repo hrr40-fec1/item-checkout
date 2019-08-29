@@ -8,7 +8,7 @@ const port = process.env.PORT || 3002;
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server started on Port ${port}`));
 
-app.get('/:productId', (req, res) => {
+app.get('/api/product/:productId', (req, res) => {
   const { productId } = req.params;
 
   db.getProduct(productId)
@@ -35,7 +35,7 @@ app.get('/api/quantity/:productId&:color&:size&:storeId', (req, res) => {
 app.get('/api/location/:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { storeId } = req.params;
-  db.getZipCode(storeId)
+  db.getLocation(storeId)
     .then((zipCode) => {
       res.status(200).send(zipCode.toString());
     })
