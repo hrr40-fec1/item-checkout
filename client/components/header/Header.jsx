@@ -6,7 +6,7 @@ import Reviews from './Reviews';
 const Header = ({ price, numOfReviews, reviewAverage }) => (
   <div>
     <Price price={price} />
-    <Reviews numOfReviews={numOfReviews} reviewAverage={reviewAverage}/>
+    <Reviews numOfReviews={numOfReviews} reviewAverage={reviewAverage} />
   </div>
 );
 

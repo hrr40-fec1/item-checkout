@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StarRatings from 'react-star-ratings';
 
 const Reviews = ({ numOfReviews, reviewAverage }) => (
   <div>
-    <span id="reviewAverage">{reviewAverage} </span>&nbsp;
+    <StarRatings
+      rating={reviewAverage}
+      starRatedColor="rgb(255, 215, 0)"
+      numberOfStars={5}
+      starDimension="15px"
+      starSpacing="1px"
+      name="rating"
+    />
     <span id="numOfReviews">{numOfReviews}</span>
   </div>
 );
