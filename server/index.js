@@ -36,8 +36,8 @@ app.get('/api/location/:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { storeId } = req.params;
   db.getLocation(storeId)
-    .then((zipCode) => {
-      res.status(200).send(zipCode.toString());
+    .then((location) => {
+      res.status(200).send(location);
     })
     .catch((err) => {
       res.status(500).send(err);
