@@ -8,7 +8,7 @@ const Locations = require('../models/locations.js');
 const getProduct = (productId) => new Promise((resolve, reject) => {
   Products.find({ productId })
     .then((product) => {
-      resolve(product);
+      resolve(product.length ? product[0] : 'Product Does Not Exist');
     })
     .catch((err) => {
       reject(err);
@@ -19,17 +19,17 @@ const getQuantity = (productId, color, size, storeId) => new Promise((resolve, r
   // eslint-disable-next-line object-curly-newline
   Inventory.find({ productId, color, size, storeId })
     .then((result) => {
-      resolve(result[0].quantity);
+      resolve(result.length ? result[0].quantity : 0);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-const getZipCode = (storeId) => new Promise((resolve, reject) => {
+const getLocation = (storeId) => new Promise((resolve, reject) => {
   Locations.find({ storeId })
     .then((result) => {
-      resolve(result[0].zipCode);
+      resolve(result.length ? result[0] : 'Store Does Not Exist');
     })
     .catch((err) => {
       reject(err);
@@ -38,4 +38,4 @@ const getZipCode = (storeId) => new Promise((resolve, reject) => {
 
 module.exports.getProduct = getProduct;
 module.exports.getQuantity = getQuantity;
-module.exports.getZipCode = getZipCode;
+module.exports.getLocation = getLocation;
