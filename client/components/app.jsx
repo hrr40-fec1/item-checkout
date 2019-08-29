@@ -14,26 +14,43 @@ class App extends React.Component {
       productId: 0,
       storeId: 1,
       price: 0,
+      colors: [],
+      color: '',
       numOfReviews: 0,
       reviewAverage: 0,
       location: '',
+      quantity: 0,
     };
   }
 
   componentDidMount() {
-    this.setState({ productId: 13 }, () => {
+    this.setState({ productId: 12 }, () => {
       axios.all([
         helper.getProductInfo(this.state.productId),
         helper.getLocationInfo(this.state.storeId),
       ])
         .then(axios.spread((products, locations) => {
           const product = products.data;
-          this.setState({
-            price: Number((product.price / 100).toFixed(2)),
-            numOfReviews: product.reviews.length,
-            reviewAverage: helper.calcAverageRating(product.reviews),
-            location: locations.data,
-          });
+          const colors = product.color;
+          const defaultSize = 'L';
+          helper.getInventoryInfo(
+            this.state.productId,
+            colors[0].color,
+            defaultSize,
+            locations.data.storeId,
+          )
+            .then((quantity) => {
+              this.setState({
+                price: Number((product.price / 100).toFixed(2)),
+                numOfReviews: product.reviews.length,
+                reviewAverage: helper.calcAverageRating(product.reviews),
+                location: locations.data,
+                colors,
+                color: colors[0].color,
+                size: defaultSize,
+                quantity: parseInt(quantity.data, 10),
+              });
+            });
         }));
     });
   }
@@ -47,8 +64,13 @@ class App extends React.Component {
           numOfReviews={this.state.numOfReviews}
           reviewAverage={this.state.reviewAverage}
         />
-        <Details />
+        <Details
+          colors={this.state.colors}
+          color={this.state.color}
+          size={this.state.size}
+        />
         <Checkout
+          quantity={this.state.quantity}
           city={this.state.location.name}
           zip={this.state.location.zipCode}
         />
