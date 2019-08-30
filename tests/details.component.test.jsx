@@ -35,30 +35,40 @@ describe('React Component Testing - Details', () => {
 
     test('Color squares contain color value with appropriate class', () => {
       const wrapper = shallow(<ColorSquare />);
-      wrapper.setProps({ color: 'Red' });
+      wrapper.setProps({ color: 'Red', currentSelected: 'Blue' });
       expect(wrapper.find('span').prop('className')).toBe('square Red');
       expect(wrapper.find('span').prop('value')).toBe('Red');
     });
 
-    test.todo('Current selection for color is highlighted');
+    test('Current selection for color is highlighted', () => {
+      const wrapper = shallow(<ColorSquare />);
+      wrapper.setProps({ color: 'Blue', currentSelected: 'Blue' });
+      expect(wrapper.find('span').prop('className')).toBe('square Blue selected');
+      expect(wrapper.find('span').prop('value')).toBe('Blue');
+    });
   });
 
   describe('Size Section', () => {
-    test('Size button component is rendering a button with value', () => {
-      const wrapper = shallow(<SizeButton />);
-      wrapper.setProps({ size: 'M' });
-      expect(wrapper.find('button')).toHaveLength(1);
-      expect(wrapper.find('button').prop('value')).toBe('M');
-    });
-
     test('Size buttons are being rendered', () => {
       const wrapper = shallow(<Sizes />);
       wrapper.setProps({ sizes: ['S', 'M', 'L', 'XL', '2Xl'] });
       expect(wrapper.find(SizeButton)).toHaveLength(5);
     });
 
+    test('Size button component is rendering a button with value', () => {
+      const wrapper = shallow(<SizeButton />);
+      wrapper.setProps({ size: 'M', currentSelected: 'XL' });
+      expect(wrapper.find('button')).toHaveLength(1);
+      expect(wrapper.find('button').prop('className')).toBe('size');
+      expect(wrapper.find('button').prop('value')).toBe('M');
+    });
 
-    test.todo('Current selection for size is highlighted');
+    test('Current selection for size is highlighted', () => {
+      const wrapper = shallow(<SizeButton />);
+      wrapper.setProps({ size: 'XL', currentSelected: 'XL' });
+      expect(wrapper.find('button').prop('className')).toBe('size selected');
+      expect(wrapper.find('button').prop('value')).toBe('XL');
+    });
   });
 
   describe('Quanity Section', () => {
