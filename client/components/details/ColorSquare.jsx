@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ColorSquare = ({ color }) => (
-  <span className={`square ${color}`} />
+  <span className={`square ${color}`} value={color} />
 );
 
 ColorSquare.propTypes = {

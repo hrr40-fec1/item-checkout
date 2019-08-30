@@ -16,10 +16,13 @@ class App extends React.Component {
       price: 0,
       colors: [],
       color: '',
+      sizes: [],
+      size: 'L',
       numOfReviews: 0,
       reviewAverage: 0,
       location: '',
-      quantity: 0,
+      availableQuantity: 0,
+      requestedQuantity: 1,
     };
   }
 
@@ -33,11 +36,10 @@ class App extends React.Component {
         .then(axios.spread((products, locations) => {
           const product = products.data;
           const colors = product.color;
-          const defaultSize = 'L';
           helper.getInventoryInfo(
             this.state.productId,
             colors[0].color,
-            defaultSize,
+            this.state.size,
             locations.data.storeId,
           )
             .then((quantity) => {
@@ -48,8 +50,8 @@ class App extends React.Component {
                 location: locations.data,
                 colors,
                 color: colors[0].color,
-                size: defaultSize,
-                quantity: parseInt(quantity.data, 10),
+                sizes: product.size,
+                availableQuantity: parseInt(quantity.data, 10),
               });
             });
         }));
@@ -65,13 +67,15 @@ class App extends React.Component {
           numOfReviews={this.state.numOfReviews}
           reviewAverage={this.state.reviewAverage}
         />
+        <hr />
         <Details
           colors={this.state.colors}
           color={this.state.color}
+          sizes={this.state.sizes}
           size={this.state.size}
         />
         <Checkout
-          quantity={this.state.quantity}
+          availableQuantity={this.state.availableQuantity}
           city={this.state.location.name}
           zip={this.state.location.zipCode}
         />
