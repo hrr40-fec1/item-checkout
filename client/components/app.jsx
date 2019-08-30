@@ -11,29 +11,49 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      productId: '0',
+      productId: 0,
       storeId: 1,
       price: 0,
+      colors: [],
+      color: '',
+      sizes: [],
+      size: 'L',
       numOfReviews: 0,
       reviewAverage: 0,
       location: '',
+      availableQuantity: 0,
+      requestedQuantity: 1,
     };
   }
 
   componentDidMount() {
-    this.setState({ productId: 13 }, () => {
+    const productId = helper.getProductId();
+    this.setState({ productId }, () => {
       axios.all([
         helper.getProductInfo(this.state.productId),
         helper.getLocationInfo(this.state.storeId),
       ])
         .then(axios.spread((products, locations) => {
           const product = products.data;
-          this.setState({
-            price: Number((product.price / 100).toFixed(2)),
-            numOfReviews: product.reviews.length,
-            reviewAverage: helper.calcAverageRating(product.reviews),
-            location: locations.data,
-          });
+          const colors = product.color;
+          helper.getInventoryInfo(
+            this.state.productId,
+            colors[0].color,
+            this.state.size,
+            locations.data.storeId,
+          )
+            .then((quantity) => {
+              this.setState({
+                price: (product.price / 100).toFixed(2),
+                numOfReviews: product.reviews.length,
+                reviewAverage: helper.calcAverageRating(product.reviews),
+                location: locations.data,
+                colors,
+                color: colors[0].color,
+                sizes: product.size,
+                availableQuantity: parseInt(quantity.data, 10),
+              });
+            });
         }));
     });
   }
@@ -47,8 +67,15 @@ class App extends React.Component {
           numOfReviews={this.state.numOfReviews}
           reviewAverage={this.state.reviewAverage}
         />
-        <Details />
+        <hr />
+        <Details
+          colors={this.state.colors}
+          color={this.state.color}
+          sizes={this.state.sizes}
+          size={this.state.size}
+        />
         <Checkout
+          availableQuantity={this.state.availableQuantity}
           city={this.state.location.name}
           zip={this.state.location.zipCode}
         />

@@ -22,7 +22,7 @@ describe('React Component Testing - Header', () => {
     test('Price is rendering from prop', () => {
       const wrapper = shallow(<Price />);
       wrapper.setProps({ price: 10.71 });
-      expect(wrapper.find('div').text()).toBe('10.71');
+      expect(wrapper.find('div').text()).toBe('$10.71');
     });
   });
 

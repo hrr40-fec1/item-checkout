@@ -5,25 +5,25 @@ const Inventory = require('../models/inventory.js');
 const Products = require('../models/products.js');
 
 //  Create Size Array
-const sizes = ['Small', 'Medium', 'Large', 'XL', 'XXL'];
+const sizes = ['S', 'M', 'L', 'XL', '2XL'];
 
 //  Create Color Array with object {name, url}
 //  URL will have default value until i am able to upload my own swatches
 const colors = [
   {
-    color: 'red',
+    color: 'Red',
     colorUrl: 'http://google.com',
   },
   {
-    color: 'blue',
+    color: 'Blue',
     colorUrl: 'http://google.com',
   },
   {
-    color: 'green',
+    color: 'Green',
     colorUrl: 'http://google.com',
   },
   {
-    color: 'orange',
+    color: 'Orange',
     colorUrl: 'http://google.com',
   },
 ];
