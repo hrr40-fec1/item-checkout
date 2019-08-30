@@ -1,87 +1,83 @@
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
 import Details from './details/Details';
 import Checkout from './checkout/Checkout';
 import helper from '../helper';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [productId, setProductId] = useState(1);
+  const [storeId, setStoreId] = useState(1);
+  const [price, setPrice] = useState(0);
+  const [colors, setColors] = useState([]);
+  const [color, setColor] = useState('');
+  const [sizes, setSizes] = useState([]);
+  const [size, setSize] = useState('L');
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [reviewAverage, setReviewAverage] = useState(0);
+  const [location, setLocation] = useState('');
+  const [availableQuantity, setAvailableQuantity] = useState(0);
+  const [requestedQuantity, setRequestedQuantity] = useState(1);
 
-    this.state = {
-      productId: 0,
-      storeId: 1,
-      price: 0,
-      colors: [],
-      color: '',
-      sizes: [],
-      size: 'L',
-      numOfReviews: 0,
-      reviewAverage: 0,
-      location: '',
-      availableQuantity: 0,
-      requestedQuantity: 1,
-    };
-  }
+  useEffect(() => {
+    setProductId(helper.getProductId());
+  }, []);
 
-  componentDidMount() {
-    const productId = helper.getProductId();
-    this.setState({ productId }, () => {
-      axios.all([
-        helper.getProductInfo(this.state.productId),
-        helper.getLocationInfo(this.state.storeId),
-      ])
-        .then(axios.spread((products, locations) => {
-          const product = products.data;
-          const colors = product.color;
-          helper.getInventoryInfo(
-            this.state.productId,
-            colors[0].color,
-            this.state.size,
-            locations.data.storeId,
-          )
-            .then((quantity) => {
-              this.setState({
-                price: (product.price / 100).toFixed(2),
-                numOfReviews: product.reviews.length,
-                reviewAverage: helper.calcAverageRating(product.reviews),
-                location: locations.data,
-                colors,
-                color: colors[0].color,
-                sizes: product.size,
-                availableQuantity: parseInt(quantity.data, 10),
-              });
-            });
-        }));
-    });
-  }
+  useEffect(() => {
+    helper.getProductInfo(productId)
+      .then((products) => {
+        const product = products.data;
+        setColors(product.color);
+        setPrice(product.price / 100);
+        setTotalReviews(product.reviews.length);
+        setReviewAverage(helper.calcAverageRating(product.reviews));
+        setSizes(product.size);
+      });
+  }, [productId]);
 
+  useEffect(() => {
+    if (colors.length !== 0) {
+      setColor(colors[0].color);
+    }
+  }, [colors]);
 
-  render() {
-    return (
-      <div>
-        <Header
-          price={this.state.price}
-          numOfReviews={this.state.numOfReviews}
-          reviewAverage={this.state.reviewAverage}
-        />
-        <hr />
-        <Details
-          colors={this.state.colors}
-          color={this.state.color}
-          sizes={this.state.sizes}
-          size={this.state.size}
-        />
-        <Checkout
-          availableQuantity={this.state.availableQuantity}
-          city={this.state.location.name}
-          zip={this.state.location.zipCode}
-        />
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    helper.getLocationInfo(storeId)
+      .then((locations) => {
+        setLocation(locations.data);
+      });
+  }, [storeId]);
+
+  useEffect(() => {
+    if (size !== '' && color !== '' && storeId !== '') {
+      helper.getInventoryInfo(productId, color, size, storeId)
+        .then((quantity) => {
+          setAvailableQuantity(parseInt(quantity.data, 10));
+        });
+    }
+  }, [size, color, storeId, productId]);
+
+  return (
+    <div>
+      <Header
+        price={price}
+        numOfReviews={totalReviews}
+        reviewAverage={reviewAverage}
+      />
+      <hr />
+      <Details
+        colors={colors}
+        color={color}
+        sizes={sizes}
+        size={size}
+      />
+      <Checkout
+        availableQuantity={availableQuantity}
+        city={location.name}
+        zip={location.zipCode}
+      />
+    </div>
+  );
+};
 
 export default App;
