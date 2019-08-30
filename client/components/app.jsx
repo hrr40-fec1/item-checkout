@@ -44,7 +44,7 @@ class App extends React.Component {
           )
             .then((quantity) => {
               this.setState({
-                price: Number((product.price / 100).toFixed(2)),
+                price: (product.price / 100).toFixed(2),
                 numOfReviews: product.reviews.length,
                 reviewAverage: helper.calcAverageRating(product.reviews),
                 location: locations.data,
