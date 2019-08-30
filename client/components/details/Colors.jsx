@@ -8,7 +8,7 @@ const Colors = ({ colors, color }) => (
     <strong>Colors</strong>
     <span id="color">{color}</span>
     <div>
-      {colors.map((colorObj) => <ColorSquare key={colorObj.color} color={colorObj.color} />)}
+      {colors.map((colorObj) => <ColorSquare key={colorObj.color} color={colorObj.color} currentSelected={color} />)}
     </div>
   </div>
 );

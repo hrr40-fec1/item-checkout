@@ -35,12 +35,17 @@ describe('React Component Testing - Details', () => {
 
     test('Color squares contain color value with appropriate class', () => {
       const wrapper = shallow(<ColorSquare />);
-      wrapper.setProps({ color: 'Red' });
+      wrapper.setProps({ color: 'Red', currentSelected: 'Blue' });
       expect(wrapper.find('span').prop('className')).toBe('square Red');
       expect(wrapper.find('span').prop('value')).toBe('Red');
     });
 
-    test.todo('Current selection for color is highlighted');
+    test('Current selection for color is highlighted', () => {
+      const wrapper = shallow(<ColorSquare />);
+      wrapper.setProps({ color: 'Blue', currentSelected: 'Blue' });
+      expect(wrapper.find('span').prop('className')).toBe('square Blue selected');
+      expect(wrapper.find('span').prop('value')).toBe('Blue');
+    });
   });
 
   describe('Size Section', () => {
