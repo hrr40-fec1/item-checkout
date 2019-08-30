@@ -7,7 +7,7 @@ const Sizes = ({ sizes, size }) => (
     <strong>Sizes</strong>
     <span id="size">{size}</span>
     <div>
-      {sizes.map((item) => <SizeButton key={item} size={item} />)}
+      {sizes.map((item) => <SizeButton key={item} size={item} currentSelected={size} />)}
     </div>
   </div>
 );
