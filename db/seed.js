@@ -1,4 +1,5 @@
 const faker = require('faker');
+const db = require('./connection.js');
 const Locations = require('../models/locations.js');
 const Inventory = require('../models/inventory.js');
 const Products = require('../models/products.js');
@@ -104,7 +105,8 @@ const createReviews = (products) => new Promise((resolve, reject) => {
       const rating = faker.random.number({ min: 1, max: 5 });
       product.reviews.push({ rating });
     }
-    updatedReviews.push(product.save());
+    const query = product.save();
+    updatedReviews.push(query);
   }
 
   Promise.all(updatedReviews)
@@ -191,18 +193,16 @@ removeExistingItems()
   .then(() => seedLocationCollection())
   .then(() => {
     Products.find({})
-      .then((products) => createReviews(products));
-  })
-  .then(() => {
-    Products.find({})
       .then((products) => {
-        Locations.find({})
-          .then((locations) => seedInventoryCollection(products, locations));
+        createReviews(products)
+          .then(() => {
+            Locations.find({})
+              .then((locations) => seedInventoryCollection(products, locations))
+              .then(() => {
+                db.connection.close();
+              });
+          });
       });
-  })
-  .then(() => {
-    // eslint-disable-next-line no-console
-    console.log('Database has been seeded.  Press ^C to exit');
   })
   .catch((err) => {
     // eslint-disable-next-line no-console
