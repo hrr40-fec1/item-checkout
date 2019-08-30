@@ -6,7 +6,6 @@ const SizeButton = ({ size, currentSelected }) => (
   <button className={currentSelected === size ? 'size selected' : 'size'} type="button" value={size}>{size}</button>
 );
 
-
 SizeButton.propTypes = {
   size: PropTypes.string,
   currentSelected: PropTypes.string,
