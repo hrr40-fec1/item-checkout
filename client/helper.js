@@ -16,6 +16,17 @@ const helper = {
     const total = array.reduce((sum, item) => sum + item.rating, 0);
     return Math.round((total / array.length) * 100) / 100;
   },
+
+  getShippingDate: () => {
+    const shippingDate = new Date();
+    shippingDate.setDate(shippingDate.getDate() + 2);
+
+    const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(shippingDate);
+    const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(shippingDate);
+    const date = shippingDate.getDate();
+
+    return `${day}, ${month} ${date}`;
+  },
 };
 
 export default helper;
