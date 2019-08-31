@@ -2,7 +2,6 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../server');
 
-
 beforeAll(async () => {
   // eslint-disable-next-line global-require
   await require('../db/index.js');
