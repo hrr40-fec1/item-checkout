@@ -7,7 +7,6 @@ import Delivery from '../client/components/checkout/Delivery';
 import InStock from '../client/components/checkout/InStock';
 import OutOfStock from '../client/components/checkout/OutOfStock';
 
-
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('React Component Testing - Checkout', () => {

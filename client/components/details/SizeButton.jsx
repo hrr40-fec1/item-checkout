@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SizeButton = ({ size, currentSelected }) => (
-
   <button className={currentSelected === size ? 'size selected' : 'size'} type="button" value={size}>{size}</button>
 );
 

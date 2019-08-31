@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import InStock from './InStock';
 import OutOfStock from './OutOfStock';
 
-
 const StorePickup = ({ availableQuantity, city }) => {
   if (availableQuantity === 0) {
     return <OutOfStock city={city} />;
