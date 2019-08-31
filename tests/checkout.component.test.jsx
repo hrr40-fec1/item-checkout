@@ -60,7 +60,14 @@ describe('React Component Testing - Checkout', () => {
   });
 
   describe('Delivery Section', () => {
-    test.todo('Button to "Ship it" is rendered');
-    test.todo('Display zip code of location');
+    test('Button to "Ship it" is rendered', () => {
+      const wrapper = shallow(<Delivery />);
+      expect(wrapper.find('button').text()).toBe('Ship It');
+    });
+    test('Display zip code of location', () => {
+      const wrapper = shallow(<Delivery />);
+      wrapper.setProps({ zip: 91709 });
+      expect(wrapper.find('.h-text-bold').at(1).text()).toBe('91709');
+    });
   });
 });

@@ -5,7 +5,10 @@ import helper from '../../helper';
 const Delivery = ({ zip }) => (
   <div>
     <div className="col-left">
-      <div>{`Deliver to ${zip}`}</div>
+      <div>
+        <span className="h-text-bold h-text-green">Deliver to </span>
+        <span className="h-text-bold">{zip}</span>
+      </div>
       <div>Edit zip code</div>
     </div>
     <div className="col-right">
