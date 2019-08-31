@@ -29,12 +29,12 @@ describe('Retrieve Information from DB', () => {
   });
 
   test('Retrieve Quantity of Given Product, color exist', async () => {
-    const itemQuantity = await db.getQuantity(5, 'red', 'Large', 2);
+    const itemQuantity = await db.getQuantity(5, 'red', 'L', 2);
     expect(itemQuantity).toEqual(expect.any(Number));
   });
 
   test('Retrieve Quantity of Given Product, color does not exist', async () => {
-    const itemQuantity = await db.getQuantity(5, 'blurple', 'Large', 2);
+    const itemQuantity = await db.getQuantity(5, 'blurple', 'L', 2);
     expect(itemQuantity).toBe(0);
   });
 
