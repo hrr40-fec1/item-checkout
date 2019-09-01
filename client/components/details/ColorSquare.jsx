@@ -27,6 +27,9 @@ const Square = styled.div`
   background-color: ${({ color }) => color};
 `;
 
+Button.displayName = 'Button';
+Square.displayName = 'Square';
+
 const ColorSquare = ({ color, currentSelected }) => (
   <Button type="button" selected={currentSelected === color}>
     <Square value={color} color={color} />

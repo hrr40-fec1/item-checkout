@@ -19,6 +19,8 @@ const Button = styled.button`
   }
 `;
 
+Button.displayName = 'Button';
+
 const SizeButton = ({ size, currentSelected }) => (
   <Button type="button" selected={currentSelected === size} value={size}>{size}</Button>
 );
