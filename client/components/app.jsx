@@ -1,9 +1,15 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Header from './header/Header';
 import Details from './details/Details';
 import Checkout from './checkout/Checkout';
 import helper from '../helper';
+
+const Widget = styled.div`
+  min-width: 320px;
+  max-width: 320px;
+`;
 
 const App = () => {
   const [productId, setProductId] = useState(1);
@@ -58,7 +64,7 @@ const App = () => {
   }, [size, color, storeId, productId]);
 
   return (
-    <div>
+    <Widget>
       <Header
         price={price}
         numOfReviews={totalReviews}
@@ -76,7 +82,7 @@ const App = () => {
         city={location.name}
         zip={location.zipCode}
       />
-    </div>
+    </Widget>
   );
 };
 

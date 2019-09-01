@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  width: 70px;
+  width: 75px;
   height: 33px;
   border: 1px solid #a9a9a9;
   border-radius: 10px;
-  margin: 5px 10px;
+  margin: 5px 5px;
   font-size: 14px;
 
   ${({ selected }) => selected && `
