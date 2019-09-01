@@ -1,4 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const QuantitySection = styled.div`
+  font-size: 17px;
+`;
+
+const Dropdown = styled.select`
+  font-size: 16px;
+  margin-left: 5px;
+  padding: 2px 5px;
+`;
 
 const Quantity = () => {
   const values = [];
@@ -8,12 +19,12 @@ const Quantity = () => {
   }
 
   return (
-    <div>
+    <QuantitySection>
       Quantity:
-      <select>
+      <Dropdown>
         {values}
-      </select>
-    </div>
+      </Dropdown>
+    </QuantitySection>
   );
 };
 
