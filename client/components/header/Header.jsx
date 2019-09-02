@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Price from './Price';
 import Reviews from './Reviews';
 
+const Section = styled.section`
+  padding: 5px 0px;
+`;
+
 const Header = ({ price, numOfReviews, reviewAverage }) => (
   <div>
-    <Price price={price} />
-    <Reviews numOfReviews={numOfReviews} reviewAverage={reviewAverage} />
+    <Section>
+      <Price price={price} />
+    </Section>
+    <Section>
+      <Reviews numOfReviews={numOfReviews} reviewAverage={reviewAverage} />
+    </Section>
   </div>
 );
 

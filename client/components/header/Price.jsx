@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Title = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+`;
+
+Title.displayName = 'Title';
 
 const Price = ({ price }) => (
-  <div id="price">
+  <Title>
     {`$${price.toFixed(2)}`}
-  </div>
+  </Title>
 );
 
 Price.propTypes = {

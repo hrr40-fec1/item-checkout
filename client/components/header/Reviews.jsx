@@ -1,6 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarRatings from 'react-star-ratings';
+import styled from 'styled-components';
+
+const ReviewTotal = styled.span`
+  padding-left: 10px;
+  font-size: 12px;
+`;
+
+ReviewTotal.displayName = 'ReviewTotal';
 
 const Reviews = ({ numOfReviews, reviewAverage }) => (
   <div>
@@ -8,11 +17,13 @@ const Reviews = ({ numOfReviews, reviewAverage }) => (
       rating={reviewAverage}
       starRatedColor="rgb(255, 215, 0)"
       numberOfStars={5}
-      starDimension="15px"
+      starDimension="20px"
       starSpacing="1px"
       name="rating"
     />
-    <span id="numOfReviews">{numOfReviews}</span>
+    <ReviewTotal id="numOfReviews">
+      <a href="#">{numOfReviews}</a>
+    </ReviewTotal>
   </div>
 );
 
