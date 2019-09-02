@@ -53,6 +53,9 @@ const DeliveryText = styled.span`
   font-size: 14px;
 `;
 
+Button.displayName = 'Button';
+Location.displayName = 'Location';
+
 const Delivery = ({ zip }) => (
   <div>
     <Left>

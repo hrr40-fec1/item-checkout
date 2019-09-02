@@ -51,6 +51,10 @@ const PickUpText = styled.div`
   font-size: 14px;
 `;
 
+Location.displayName = 'Location';
+Button.displayName = 'Button';
+QuantityText.displayName = 'QuantityText';
+
 const InStock = ({ availableQuantity, city }) => (
   <div>
     <Left>
