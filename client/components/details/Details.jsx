@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Colors from './Colors';
 import Sizes from './Sizes';
 import Quantity from './Quantity';
 
+const Sections = styled.section`
+  padding: 10px 0px;
+`;
+
 // eslint-disable-next-line object-curly-newline
 const Details = ({ colors, color, sizes, size }) => (
   <div>
-    <Colors colors={colors} color={color} />
-    <Sizes sizes={sizes} size={size} />
-    <Quantity />
+    <Sections>
+      <Colors colors={colors} color={color} />
+    </Sections>
+    <Sections>
+      <Sizes sizes={sizes} size={size} />
+    </Sections>
+    <Sections>
+      <Quantity />
+    </Sections>
   </div>
 );
 

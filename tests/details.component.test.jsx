@@ -1,4 +1,4 @@
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import Details from '../client/components/details/Details';
@@ -7,6 +7,7 @@ import ColorSquare from '../client/components/details/ColorSquare';
 import Sizes from '../client/components/details/Sizes';
 import SizeButton from '../client/components/details/SizeButton';
 import Quantity from '../client/components/details/Quantity';
+import 'jest-styled-components';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -33,18 +34,18 @@ describe('React Component Testing - Details', () => {
       expect(wrapper.find(ColorSquare)).toHaveLength(3);
     });
 
-    test('Color squares contain color value with appropriate class', () => {
+    test('Color squares contain color value with styled component', () => {
       const wrapper = shallow(<ColorSquare />);
       wrapper.setProps({ color: 'Red', currentSelected: 'Blue' });
-      expect(wrapper.find('span').prop('className')).toBe('square Red');
-      expect(wrapper.find('span').prop('value')).toBe('Red');
+      expect(wrapper.find('Square')).toHaveLength(1);
+      expect(wrapper.find('Square').prop('value')).toBe('Red');
     });
 
     test('Current selection for color is highlighted', () => {
-      const wrapper = shallow(<ColorSquare />);
+      const wrapper = mount(<ColorSquare />);
       wrapper.setProps({ color: 'Blue', currentSelected: 'Blue' });
-      expect(wrapper.find('span').prop('className')).toBe('square Blue selected');
-      expect(wrapper.find('span').prop('value')).toBe('Blue');
+      expect(wrapper.find('Button')).toHaveStyleRule('border', '2px solid rgb(0,131,0)');
+      expect(wrapper.find('Square').prop('value')).toBe('Blue');
     });
   });
 
@@ -58,16 +59,15 @@ describe('React Component Testing - Details', () => {
     test('Size button component is rendering a button with value', () => {
       const wrapper = shallow(<SizeButton />);
       wrapper.setProps({ size: 'M', currentSelected: 'XL' });
-      expect(wrapper.find('button')).toHaveLength(1);
-      expect(wrapper.find('button').prop('className')).toBe('size');
-      expect(wrapper.find('button').prop('value')).toBe('M');
+      expect(wrapper.find('Button')).toHaveLength(1);
+      expect(wrapper.find('Button').prop('value')).toBe('M');
     });
 
     test('Current selection for size is highlighted', () => {
-      const wrapper = shallow(<SizeButton />);
+      const wrapper = mount(<SizeButton />);
       wrapper.setProps({ size: 'XL', currentSelected: 'XL' });
-      expect(wrapper.find('button').prop('className')).toBe('size selected');
-      expect(wrapper.find('button').prop('value')).toBe('XL');
+      expect(wrapper.find('Button')).toHaveStyleRule('border', '2px solid rgb(0,131,0)');
+      expect(wrapper.find('Button').prop('value')).toBe('XL');
     });
   });
 

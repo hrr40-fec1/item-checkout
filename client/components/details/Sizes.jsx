@@ -1,15 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import SizeButton from './SizeButton';
 
+const SizeSection = styled.div`
+  text-align: center;
+`;
+
+const Title = styled.span`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const Size = styled.span`
+  margin-left: 0.5em;
+  font-size: 20px;
+`;
+
+const SizeChart = styled.a`
+  margin-left: 10px;
+  font-size: 12px;
+`;
+
 const Sizes = ({ sizes, size }) => (
-  <div>
-    <strong>Sizes</strong>
-    <span id="size">{size}</span>
+  <SizeSection>
+    <Title>Sizes</Title>
+    <Size>{size}</Size>
+    <SizeChart href="#">Size Chart</SizeChart>
     <div>
       {sizes.map((item) => <SizeButton key={item} size={item} currentSelected={size} />)}
     </div>
-  </div>
+  </SizeSection>
 );
 
 Sizes.propTypes = {
