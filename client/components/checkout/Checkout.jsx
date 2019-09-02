@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import StorePickup from './StorePickup';
 import Delivery from './Delivery';
 
+const Section = styled.section`
+  background-color: rgb(240, 240, 240);
+  padding: 10px;
+  margin: 10px 0px;
+`;
+
 const Checkout = ({ availableQuantity, city, zip }) => (
   <div>
-    <StorePickup availableQuantity={availableQuantity} city={city} />
-    <Delivery zip={zip} />
+    <Section>
+      <StorePickup availableQuantity={availableQuantity} city={city} />
+    </Section>
+    <Section>
+      <Delivery zip={zip} />
+    </Section>
   </div>
 );
 
