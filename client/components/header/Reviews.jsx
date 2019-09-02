@@ -9,6 +9,8 @@ const ReviewTotal = styled.span`
   font-size: 12px;
 `;
 
+ReviewTotal.displayName = 'ReviewTotal';
+
 const Reviews = ({ numOfReviews, reviewAverage }) => (
   <div>
     <StarRatings

@@ -1,4 +1,4 @@
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import Header from '../client/components/header/Header';
@@ -20,9 +20,9 @@ describe('React Component Testing - Header', () => {
 
   describe('Pricing Section', () => {
     test('Price is rendering from prop', () => {
-      const wrapper = shallow(<Price />);
+      const wrapper = mount(<Price />);
       wrapper.setProps({ price: 10.71 });
-      expect(wrapper.find('div').text()).toBe('$10.71');
+      expect(wrapper.find('Title').text()).toBe('$10.71');
     });
   });
 
@@ -36,7 +36,7 @@ describe('React Component Testing - Header', () => {
     test('Total number of reviews is being rendered from prop', () => {
       const wrapper = shallow(<Reviews />);
       wrapper.setProps({ numOfReviews: 73 });
-      expect(wrapper.find('span#numOfReviews').text()).toBe('73');
+      expect(wrapper.find('ReviewTotal > a').text()).toBe('73');
     });
   });
 });

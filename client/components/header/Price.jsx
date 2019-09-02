@@ -7,6 +7,8 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
+Title.displayName = 'Title';
+
 const Price = ({ price }) => (
   <Title>
     {`$${price.toFixed(2)}`}
