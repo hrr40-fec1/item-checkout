@@ -75,6 +75,7 @@ const App = () => {
       <Details
         colors={colors}
         color={color}
+        colorClickHandler={setColor}
         sizes={sizes}
         size={size}
       />

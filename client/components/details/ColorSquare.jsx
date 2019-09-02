@@ -30,9 +30,9 @@ const Square = styled.div`
 Button.displayName = 'Button';
 Square.displayName = 'Square';
 
-const ColorSquare = ({ color, currentSelected }) => (
+const ColorSquare = ({ color, currentSelected, colorClickHandler }) => (
   <Button type="button" selected={currentSelected === color}>
-    <Square value={color} color={color} />
+    <Square color={color} onClick={() => colorClickHandler(color)} />
   </Button>
 );
 
@@ -47,11 +47,13 @@ Square.defaultProps = {
 ColorSquare.propTypes = {
   color: PropTypes.string,
   currentSelected: PropTypes.string,
+  colorClickHandler: PropTypes.func,
 };
 
 ColorSquare.defaultProps = {
   color: 'Black',
   currentSelected: 'Black',
+  colorClickHandler: () => {},
 };
 
 export default ColorSquare;
