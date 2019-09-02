@@ -70,14 +70,18 @@ const InStock = ({ availableQuantity, city }) => (
   </div>
 );
 
+
 InStock.propTypes = {
   availableQuantity: PropTypes.number,
   city: PropTypes.string,
+  setStoreId: PropTypes.func,
 };
 
 InStock.defaultProps = {
   availableQuantity: 0,
   city: '',
+  setStoreId: () => {},
 };
+
 
 export default InStock;
