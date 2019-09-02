@@ -21,18 +21,20 @@ const Button = styled.button`
 
 Button.displayName = 'Button';
 
-const SizeButton = ({ size, currentSelected }) => (
-  <Button type="button" selected={currentSelected === size} value={size}>{size}</Button>
+const SizeButton = ({ size, currentSelected, sizeClickHandler }) => (
+  <Button type="button" selected={currentSelected === size} onClick={() => sizeClickHandler(size)}>{size}</Button>
 );
 
 SizeButton.propTypes = {
   size: PropTypes.string,
   currentSelected: PropTypes.string,
+  sizeClickHandler: PropTypes.func,
 };
 
 SizeButton.defaultProps = {
   size: 'L',
   currentSelected: 'L',
+  sizeClickHandler: () => {},
 };
 
 export default SizeButton;

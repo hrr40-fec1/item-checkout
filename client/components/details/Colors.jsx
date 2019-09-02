@@ -18,7 +18,7 @@ const Color = styled.span`
 `;
 
 
-const Colors = ({ colors, color }) => (
+const Colors = ({ colors, color, colorClickHandler }) => (
   // eslint-disable-next-line react/jsx-one-expression-per-line
   <ColorSection>
     <Title>Color</Title>
@@ -29,6 +29,7 @@ const Colors = ({ colors, color }) => (
           key={colorObj.color}
           color={colorObj.color}
           currentSelected={color}
+          colorClickHandler={colorClickHandler}
         />
       ))}
     </div>
@@ -39,11 +40,13 @@ Colors.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   colors: PropTypes.array,
   color: PropTypes.string,
+  colorClickHandler: PropTypes.func,
 };
 
 Colors.defaultProps = {
   colors: [{ color: 'Black' }, { color: 'Red' }],
   color: 'Black',
+  colorClickHandler: () => {},
 };
 
 export default Colors;

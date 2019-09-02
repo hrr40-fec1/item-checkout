@@ -34,18 +34,18 @@ describe('React Component Testing - Details', () => {
       expect(wrapper.find(ColorSquare)).toHaveLength(3);
     });
 
-    test('Color squares contain color value with styled component', () => {
+    test('Color squares contain color with styled component', () => {
       const wrapper = shallow(<ColorSquare />);
       wrapper.setProps({ color: 'Red', currentSelected: 'Blue' });
       expect(wrapper.find('Square')).toHaveLength(1);
-      expect(wrapper.find('Square').prop('value')).toBe('Red');
+      expect(wrapper.find('Square').prop('color')).toBe('Red');
     });
 
     test('Current selection for color is highlighted', () => {
       const wrapper = mount(<ColorSquare />);
       wrapper.setProps({ color: 'Blue', currentSelected: 'Blue' });
       expect(wrapper.find('Button')).toHaveStyleRule('border', '2px solid rgb(0,131,0)');
-      expect(wrapper.find('Square').prop('value')).toBe('Blue');
+      expect(wrapper.find('Square').prop('color')).toBe('Blue');
     });
   });
 
@@ -60,14 +60,14 @@ describe('React Component Testing - Details', () => {
       const wrapper = shallow(<SizeButton />);
       wrapper.setProps({ size: 'M', currentSelected: 'XL' });
       expect(wrapper.find('Button')).toHaveLength(1);
-      expect(wrapper.find('Button').prop('value')).toBe('M');
+      expect(wrapper.find('Button').text()).toBe('M');
     });
 
     test('Current selection for size is highlighted', () => {
       const wrapper = mount(<SizeButton />);
       wrapper.setProps({ size: 'XL', currentSelected: 'XL' });
       expect(wrapper.find('Button')).toHaveStyleRule('border', '2px solid rgb(0,131,0)');
-      expect(wrapper.find('Button').prop('value')).toBe('XL');
+      expect(wrapper.find('Button').text()).toBe('XL');
     });
   });
 
