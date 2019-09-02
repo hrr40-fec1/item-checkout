@@ -7,8 +7,9 @@ import Checkout from './checkout/Checkout';
 import helper from '../helper';
 
 const Widget = styled.div`
-  min-width: 320px;
-  max-width: 320px;
+  min-width: 290px;
+  max-width: 290px;
+  padding: 10px;
 `;
 
 const App = () => {

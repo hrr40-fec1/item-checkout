@@ -1,4 +1,4 @@
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import Checkout from '../client/components/checkout/Checkout';
@@ -6,6 +6,8 @@ import StorePickup from '../client/components/checkout/StorePickup';
 import Delivery from '../client/components/checkout/Delivery';
 import InStock from '../client/components/checkout/InStock';
 import OutOfStock from '../client/components/checkout/OutOfStock';
+import 'jest-styled-components';
+
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -41,32 +43,38 @@ describe('React Component Testing - Checkout', () => {
 
     test('Button to "Pick it up" is rendered', () => {
       const wrapper = shallow(<InStock />);
-      expect(wrapper.find('button')).toHaveLength(1);
-      expect(wrapper.find('button').text()).toBe('Pick it up');
+      expect(wrapper.find('Button')).toHaveLength(1);
+      expect(wrapper.find('Button').text()).toBe('Pick it up');
     });
 
     test('In Store Pickup displaying city received from prop', () => {
       const wrapper = shallow(<InStock />);
       wrapper.setProps({ city: 'Port Ivy' });
-      expect(wrapper.find('.h-text-bold').at(1).text()).toBe('at Port Ivy');
+      expect(wrapper.find('Location').text()).toBe('at Port Ivy');
     });
 
     test('In Store Pickup displaying count of product at location', () => {
       const wrapper = shallow(<InStock />);
       wrapper.setProps({ availableQuantity: 10 });
-      expect(wrapper.find('.h-text-orange').text()).toBe('only 10 left');
+      expect(wrapper.find('QuantityText').text()).toBe('only 10 left');
+    });
+
+    test('In Store Pickup displaying Orange text for product count <= 5', () => {
+      const wrapper = mount(<InStock />);
+      wrapper.setProps({ availableQuantity: 4 });
+      expect(wrapper.find('QuantityText')).toHaveStyleRule('color', 'rgb(184,83,0)');
     });
   });
 
   describe('Delivery Section', () => {
     test('Button to "Ship it" is rendered', () => {
       const wrapper = shallow(<Delivery />);
-      expect(wrapper.find('button').text()).toBe('Ship It');
+      expect(wrapper.find('Button').text()).toBe('Ship It');
     });
     test('Display zip code of location', () => {
       const wrapper = shallow(<Delivery />);
       wrapper.setProps({ zip: 91709 });
-      expect(wrapper.find('.h-text-bold').at(1).text()).toBe('91709');
+      expect(wrapper.find('Location').text()).toBe('91709');
     });
   });
 });
