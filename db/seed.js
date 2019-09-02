@@ -12,19 +12,21 @@ const sizes = ['S', 'M', 'L', 'XL', '2XL'];
 const colors = [
   {
     color: 'Red',
-    colorUrl: 'http://google.com',
   },
   {
     color: 'Blue',
-    colorUrl: 'http://google.com',
   },
   {
     color: 'Green',
-    colorUrl: 'http://google.com',
   },
   {
     color: 'Orange',
-    colorUrl: 'http://google.com',
+  },
+  {
+    color: 'Black',
+  },
+  {
+    color: 'Purple',
   },
 ];
 
