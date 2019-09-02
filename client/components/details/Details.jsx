@@ -10,13 +10,13 @@ const Sections = styled.section`
 `;
 
 // eslint-disable-next-line object-curly-newline
-const Details = ({ colors, color, colorClickHandler, sizes, size }) => (
+const Details = ({ colors, color, colorClickHandler, sizes, size, sizeClickHandler }) => (
   <div>
     <Sections>
       <Colors colors={colors} color={color} colorClickHandler={colorClickHandler} />
     </Sections>
     <Sections>
-      <Sizes sizes={sizes} size={size} />
+      <Sizes sizes={sizes} size={size} sizeClickHandler={sizeClickHandler} />
     </Sections>
     <Sections>
       <Quantity />
@@ -32,6 +32,7 @@ Details.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   sizes: PropTypes.array,
   size: PropTypes.string,
+  sizeClickHandler: PropTypes.func,
 };
 
 Details.defaultProps = {
@@ -40,6 +41,7 @@ Details.defaultProps = {
   colorClickHandler: () => {},
   sizes: ['S', 'M', 'L', 'XL', '2XL'],
   size: 'L',
+  sizeClickHandler: () => {},
 };
 
 export default Details;

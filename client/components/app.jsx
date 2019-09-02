@@ -78,6 +78,7 @@ const App = () => {
         colorClickHandler={setColor}
         sizes={sizes}
         size={size}
+        sizeClickHandler={setSize}
       />
       <Checkout
         availableQuantity={availableQuantity}

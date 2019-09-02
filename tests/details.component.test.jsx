@@ -60,14 +60,14 @@ describe('React Component Testing - Details', () => {
       const wrapper = shallow(<SizeButton />);
       wrapper.setProps({ size: 'M', currentSelected: 'XL' });
       expect(wrapper.find('Button')).toHaveLength(1);
-      expect(wrapper.find('Button').prop('value')).toBe('M');
+      expect(wrapper.find('Button').text()).toBe('M');
     });
 
     test('Current selection for size is highlighted', () => {
       const wrapper = mount(<SizeButton />);
       wrapper.setProps({ size: 'XL', currentSelected: 'XL' });
       expect(wrapper.find('Button')).toHaveStyleRule('border', '2px solid rgb(0,131,0)');
-      expect(wrapper.find('Button').prop('value')).toBe('XL');
+      expect(wrapper.find('Button').text()).toBe('XL');
     });
   });
 
