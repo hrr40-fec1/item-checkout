@@ -1,13 +1,21 @@
-# Project Name
+# Bullseye - Item Checkout Service
 
-> Project description
+> Bullseye is a recreation of the Target Item Product Page.  This service renders the checkout component on the Bullseye site.  The checkout component contains the following information for the product:
+>  - Price
+>  - Overall Review Rating
+>  - Total Number of Reviews
+>  - Color Selector
+>  - Quantity Dropdown
+>  - In Store Pick Up Section
+>  - Delivery Section
+
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/hrr40-fec1/item-checkout
+  - https://github.com/hrr40-fec1/item-reviews
+  - https://github.com/hrr40-fec1/item-details
+  - https://github.com/hrr40-fec1/Images
 
 ## Table of Contents
 
@@ -24,7 +32,7 @@
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- MongoDB 4.2
 
 ## Development
 
@@ -33,6 +41,13 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+```
+
+### Seeding the Database
+
+From within the root directory:
+
+```sh
+npm run seed
 ```
