@@ -44,4 +44,16 @@ app.get('/api/location/:storeId', (req, res) => {
     });
 });
 
+app.get('/api/locationZip/:zipCode', (req, res) => {
+  // eslint-disable-next-line object-curly-newline
+  const { zipCode } = req.params;
+  db.getLocationZip(zipCode)
+    .then((location) => {
+      res.status(200).send(location);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 module.exports = app;
