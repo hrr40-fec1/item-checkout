@@ -50,7 +50,7 @@ describe('React Component Testing - Checkout', () => {
     test('In Store Pickup displaying city received from prop', () => {
       const wrapper = shallow(<InStock />);
       wrapper.setProps({ city: 'Port Ivy' });
-      expect(wrapper.find('Location').text()).toBe('at Port Ivy');
+      expect(wrapper.find('Location').text()).toBe('at Port Ivy?');
     });
 
     test('In Store Pickup displaying count of product at location', () => {

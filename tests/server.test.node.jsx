@@ -74,7 +74,9 @@ describe('Test API routes', () => {
           return done(err);
         }
         expect(res.body.storeId).toBe(2);
-        expect(res.body.name).toEqual(expect.any(String));
+        expect(res.body.streetAddress).toEqual(expect.any(String));
+        expect(res.body.city).toEqual(expect.any(String));
+        expect(res.body.state).toEqual(expect.any(String));
         expect(res.body.zipCode).toEqual(expect.any(Number));
         return done();
       });

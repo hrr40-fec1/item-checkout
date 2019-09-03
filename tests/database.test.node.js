@@ -40,7 +40,9 @@ describe('Retrieve Information from DB', () => {
 
   test('Retrieve Location Info, storeId exists', async () => {
     const location = await db.getLocation(1);
-    expect(location.name).toEqual(expect.any(String));
+    expect(location.streetAddress).toEqual(expect.any(String));
+    expect(location.city).toEqual(expect.any(String));
+    expect(location.state).toEqual(expect.any(String));
     expect(location.zipCode).toEqual(expect.any(Number));
   });
 
