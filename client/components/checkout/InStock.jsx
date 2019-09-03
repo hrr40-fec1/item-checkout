@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Left = styled.div`
   display: inline-block;
@@ -38,6 +39,11 @@ const Button = styled.button`
   padding: 6px 10px;
 `;
 
+const Info = styled.button`
+  margin-left: 10px;
+  border-radius: 100%;
+`;
+
 const QuantityText = styled.div`
   margin-top: 5px;
   font-size: 14px;
@@ -55,11 +61,16 @@ Location.displayName = 'Location';
 Button.displayName = 'Button';
 QuantityText.displayName = 'QuantityText';
 
-const InStock = ({ availableQuantity, city }) => (
+const InStock = ({ availableQuantity, streetAddress, city, state, zip, setStoreId }) => (
   <div>
     <Left>
       <Title>Pick up today</Title>
-      <Location>{`at ${city}`}</Location>
+      <Location>
+        {`at ${city}`}
+        <Tooltip title={`${streetAddress} ${city}, ${state} ${zip}`} placement="top">
+          <Info Title="Test">?</Info>
+        </Tooltip>
+      </Location>
       <EditStore href="#">Edit store</EditStore>
     </Left>
     <Right>
@@ -73,13 +84,19 @@ const InStock = ({ availableQuantity, city }) => (
 
 InStock.propTypes = {
   availableQuantity: PropTypes.number,
+  streetAddress: PropTypes.string,
   city: PropTypes.string,
+  state: PropTypes.string,
+  zip: PropTypes.number,
   setStoreId: PropTypes.func,
 };
 
 InStock.defaultProps = {
   availableQuantity: 0,
+  streetAddress: '',
   city: '',
+  state: '',
+  zip: 0,
   setStoreId: () => {},
 };
 

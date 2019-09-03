@@ -129,8 +129,10 @@ const seedLocationCollection = () => new Promise((resolve, reject) => {
   for (let i = 1; i <= 2; i += 1) {
     const location = {
       storeId: i,
+      streetAddress: faker.address.streetAddress(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
       zipCode: faker.address.zipCode('#####'),
-      name: faker.address.city(),
     };
 
     createdLocations.push(Locations.create(location));

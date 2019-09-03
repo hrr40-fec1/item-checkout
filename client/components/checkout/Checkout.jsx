@@ -11,10 +11,17 @@ const Section = styled.section`
 `;
 
 // eslint-disable-next-line object-curly-newline
-const Checkout = ({ availableQuantity, city, zip, setStoreId }) => (
+const Checkout = ({ availableQuantity, streetAddress, city, state, zip, setStoreId }) => (
   <div>
     <Section>
-      <StorePickup availableQuantity={availableQuantity} city={city} setStoreId={setStoreId} />
+      <StorePickup
+        availableQuantity={availableQuantity}
+        streetAddress={streetAddress}
+        city={city}
+        state={state}
+        zip={zip}
+        setStoreId={setStoreId}
+      />
     </Section>
     <Section>
       <Delivery zip={zip} />
@@ -24,14 +31,18 @@ const Checkout = ({ availableQuantity, city, zip, setStoreId }) => (
 
 Checkout.propTypes = {
   availableQuantity: PropTypes.number,
+  streetAddress: PropTypes.string,
   city: PropTypes.string,
+  state: PropTypes.string,
   zip: PropTypes.number,
   setStoreId: PropTypes.func,
 };
 
 Checkout.defaultProps = {
   availableQuantity: 0,
+  streetAddress: '',
   city: '',
+  state: '',
   zip: 0,
   setStoreId: () => {},
 };
