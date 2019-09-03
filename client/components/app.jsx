@@ -82,7 +82,7 @@ const App = () => {
       />
       <Checkout
         availableQuantity={availableQuantity}
-        city={location.name}
+        city={location.city}
         zip={location.zipCode}
       />
     </Widget>
