@@ -6,7 +6,7 @@ import OutOfStock from './OutOfStock';
 
 const StorePickup = ({ availableQuantity, streetAddress, city, state, zip, setStoreId }) => {
   if (availableQuantity === 0) {
-    return <OutOfStock city={city} />;
+    return <OutOfStock city={city} setStoreId={setStoreId} />;
   }
 
   return (

@@ -30,8 +30,13 @@ const Location = styled.span`
   font-size: 17px;
 `;
 
-const EditZip = styled.a`
-  font-size: 12px;
+const EditZip = styled.button`
+padding: 0px;
+border: 0px;
+background-color: rgb(240, 240, 240);
+font-size: 12px;
+font-family: Times New Roman;
+text-decoration: underline;
 `;
 
 const Button = styled.button`
@@ -56,13 +61,13 @@ const DeliveryText = styled.span`
 Button.displayName = 'Button';
 Location.displayName = 'Location';
 
-const Delivery = ({ zip }) => (
+const Delivery = ({ zip, setZipCode }) => (
   <div>
     <Left>
       <Title>Deliver to</Title>
       <Location>{zip}</Location>
       <div>
-        <EditZip href="#">Edit zip code</EditZip>
+        <EditZip onClick={() => setZipCode(window.prompt('Enter New Zip Code'))}>Edit zip code</EditZip>
       </div>
     </Left>
     <Right>
@@ -77,10 +82,12 @@ const Delivery = ({ zip }) => (
 
 Delivery.propTypes = {
   zip: PropTypes.number,
+  setZipCode: PropTypes.func,
 };
 
 Delivery.defaultProps = {
   zip: 0,
+  setZipCode: () => {},
 };
 
 export default Delivery;
