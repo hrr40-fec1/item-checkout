@@ -86,6 +86,7 @@ const App = () => {
         city={location.city}
         state={location.state}
         zip={location.zipCode}
+        setStoreId={setStoreId}
       />
     </Widget>
   );

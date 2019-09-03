@@ -25,8 +25,13 @@ const Location = styled.div`
   font-size: 17px;
 `;
 
-const EditStore = styled.a`
+const EditStore = styled.button`
+  padding: 0px;
+  border: 0px;
+  background-color: rgb(240, 240, 240);
   font-size: 12px;
+  font-family: Times New Roman;
+  text-decoration: underline;
 `;
 
 const Button = styled.button`
@@ -71,7 +76,7 @@ const InStock = ({ availableQuantity, streetAddress, city, state, zip, setStoreI
           <Info Title="Test">?</Info>
         </Tooltip>
       </Location>
-      <EditStore href="#">Edit store</EditStore>
+      <EditStore onClick={() => setStoreId(window.prompt('Enter New Store Id'))}>Edit store</EditStore>
     </Left>
     <Right>
       <Button type="button">Pick it up</Button>
