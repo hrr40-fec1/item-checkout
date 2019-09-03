@@ -10,6 +10,8 @@ const helper = {
 
   getLocationInfo: (storeId) => axios.get(`api/location/${storeId}`),
 
+  getLocationZipInfo: (zipCode) => axios.get(`api/locationZip/${zipCode}`),
+
   getInventoryInfo: (productId, color, size, storeId) => axios.get(`/api/quantity/${productId}&${color}&${size}&${storeId}`),
 
   calcAverageRating: (array) => {

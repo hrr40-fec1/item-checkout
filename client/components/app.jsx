@@ -15,6 +15,7 @@ const Widget = styled.div`
 const App = () => {
   const [productId, setProductId] = useState(1);
   const [storeId, setStoreId] = useState(1);
+  const [zipCode, setZipCode] = useState(0);
   const [price, setPrice] = useState(0);
   const [colors, setColors] = useState([]);
   const [color, setColor] = useState('');
@@ -52,8 +53,19 @@ const App = () => {
     helper.getLocationInfo(storeId)
       .then((locations) => {
         setLocation(locations.data);
+        setZipCode(locations.data.zipCode);
       });
   }, [storeId]);
+
+  useEffect(() => {
+    if(zipCode !== 0) {
+      helper.getLocationZipInfo(zipCode)
+        .then((locations) => {
+          setStoreId(locations.data.storeId);
+          setLocation(locations.data);
+        });
+    }
+  }, [zipCode]);
 
   useEffect(() => {
     if (size !== '' && color !== '' && storeId !== '') {
@@ -87,6 +99,7 @@ const App = () => {
         state={location.state}
         zip={location.zipCode}
         setStoreId={setStoreId}
+        setZipCode={setZipCode}
       />
     </Widget>
   );
