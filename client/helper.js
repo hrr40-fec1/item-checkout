@@ -6,13 +6,13 @@ const helper = {
     return urlParams.get('productId') || 1;
   },
 
-  getProductInfo: (productId) => axios.get(`/api/product/${productId}`),
+  getProductInfo: (productId) => axios.get(`/api/checkout/product/${productId}`),
 
-  getLocationInfo: (storeId) => axios.get(`api/location/${storeId}`),
+  getLocationInfo: (storeId) => axios.get(`api/checkout/location/${storeId}`),
 
-  getLocationZipInfo: (zipCode) => axios.get(`api/locationZip/${zipCode}`),
+  getLocationZipInfo: (zipCode) => axios.get(`api/checkout/locationZip/${zipCode}`),
 
-  getInventoryInfo: (productId, color, size, storeId) => axios.get(`/api/quantity/${productId}&${color}&${size}&${storeId}`),
+  getInventoryInfo: (productId, color, size, storeId) => axios.get(`/api/checkout/quantity/${productId}&${color}&${size}&${storeId}`),
 
   calcAverageRating: (array) => {
     const total = array.reduce((sum, item) => sum + item.rating, 0);
