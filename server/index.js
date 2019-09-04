@@ -8,7 +8,7 @@ const port = process.env.PORT || 3002;
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server started on Port ${port}`));
 
-app.get('/api/product/:productId', (req, res) => {
+app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
 
   db.getProduct(productId)
@@ -20,7 +20,7 @@ app.get('/api/product/:productId', (req, res) => {
     });
 });
 
-app.get('/api/quantity/:productId&:color&:size&:storeId', (req, res) => {
+app.get('/api/checkout/quantity/:productId&:color&:size&:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { productId, color, size, storeId } = req.params;
   db.getQuantity(productId, color, size, storeId)
@@ -32,7 +32,7 @@ app.get('/api/quantity/:productId&:color&:size&:storeId', (req, res) => {
     });
 });
 
-app.get('/api/location/:storeId', (req, res) => {
+app.get('/api/checkout/location/:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { storeId } = req.params;
   db.getLocation(storeId)
@@ -44,7 +44,7 @@ app.get('/api/location/:storeId', (req, res) => {
     });
 });
 
-app.get('/api/locationZip/:zipCode', (req, res) => {
+app.get('/api/checkout/locationZip/:zipCode', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { zipCode } = req.params;
   db.getLocationZip(zipCode)
