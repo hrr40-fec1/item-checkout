@@ -14,7 +14,7 @@ afterAll(async () => {
 describe('Test API routes', () => {
   test('Get Product Info - Item Exists', (done) => {
     request(app)
-      .get('/api/product/10')
+      .get('/api/checkout/product/10')
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -31,7 +31,7 @@ describe('Test API routes', () => {
 
   test('Get Product Info - Item Does Not Exist', (done) => {
     request(app)
-      .get('/api/product/101')
+      .get('/api/checkout/product/101')
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -44,7 +44,7 @@ describe('Test API routes', () => {
 
   test('GET quantity - Item Exist', (done) => {
     request(app)
-      .get('/api/quantity/5&Red&:L&2')
+      .get('/api/checkout/quantity/5&Red&:L&2')
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -56,7 +56,7 @@ describe('Test API routes', () => {
 
   test('GET quantity - Item Does Not Exist', (done) => {
     request(app)
-      .get('/api/quantity/5&blurple&:L&2')
+      .get('/api/checkout/quantity/5&blurple&:L&2')
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -68,7 +68,7 @@ describe('Test API routes', () => {
 
   test('GET location - exist', (done) => {
     request(app)
-      .get('/api/location/2')
+      .get('/api/checkout/location/2')
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -84,7 +84,7 @@ describe('Test API routes', () => {
 
   test('GET location - does not exist', (done) => {
     request(app)
-      .get('/api/location/200')
+      .get('/api/checkout/location/200')
       .end((err, res) => {
         if (err) {
           return done(err);
