@@ -51,3 +51,11 @@ From within the root directory:
 ```sh
 npm run seed
 ```
+
+### Build Webpack
+
+From within the root directory:
+
+```sh
+npm run build
+```
