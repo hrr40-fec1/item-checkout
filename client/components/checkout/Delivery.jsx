@@ -37,6 +37,10 @@ background-color: rgb(240, 240, 240);
 font-size: 12px;
 font-family: Times New Roman;
 text-decoration: underline;
+
+&:focus {
+  outline: thin dotted;
+}
 `;
 
 const Button = styled.button`

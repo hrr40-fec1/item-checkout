@@ -32,6 +32,10 @@ const EditStore = styled.button`
   font-size: 12px;
   font-family: Times New Roman;
   text-decoration: underline;
+
+  &:focus {
+    outline: thin dotted;
+  }
 `;
 
 const Button = styled.button`
@@ -47,6 +51,10 @@ const Button = styled.button`
 const Info = styled.button`
   margin-left: 10px;
   border-radius: 100%;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const QuantityText = styled.div`
@@ -73,7 +81,7 @@ const InStock = ({ availableQuantity, streetAddress, city, state, zip, setStoreI
       <Location>
         {`at ${city}`}
         <Tooltip title={`${streetAddress} ${city}, ${state} ${zip}`} placement="top">
-          <Info Title="Test">?</Info>
+          <Info>?</Info>
         </Tooltip>
       </Location>
       <EditStore onClick={() => setStoreId(window.prompt('Enter New Store Id'))}>Edit store</EditStore>

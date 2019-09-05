@@ -17,6 +17,10 @@ const Button = styled.button`
   &:hover {
     border: 2px solid rgb(0, 0, 0);
   }
+
+  &:focus {
+    outline: thin dotted;
+  }
 `;
 
 Button.displayName = 'Button';
