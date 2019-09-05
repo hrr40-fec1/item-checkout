@@ -9,6 +9,10 @@ const EditStore = styled.button`
   font-size: 12px;
   font-family: Times New Roman;
   text-decoration: underline;
+
+  &:focus {
+    outline: thin dotted;
+  }
 `;
 
 const OutOfStock = ({ city, setStoreId }) => (
