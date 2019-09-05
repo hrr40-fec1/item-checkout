@@ -9,6 +9,10 @@ const Dropdown = styled.select`
   font-size: 16px;
   margin-left: 5px;
   padding: 2px 5px;
+
+  &:focus {
+    outline: thin dotted;
+  }
 `;
 
 const Quantity = () => {
