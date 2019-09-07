@@ -1,6 +1,6 @@
 const db = require('mongoose');
 
-db.connect('mongodb://localhost:27017/ontarget', { useNewUrlParser: true });
+db.connect('mongodb://mongo:27017/ontarget', { useNewUrlParser: true });
 
 db.connection.on('connected', () => {
   // eslint-disable-next-line no-console
